@@ -1,0 +1,7 @@
+docker run -d -p 5000:5000 -e environment=development etin5/td3mlops:latest
+
+
+What Happens Before the Image Starts?
+First Docker checks your local image cache to see if the requested image and tag are already downloaded. If not, Docker automatically pulls the image from Docker Hub 
+Then once the image is pulled, Docker create a new container based on this image
+Now Docker can run the "run" command as usual by mapping the port 5000, setting the environment variable, ...
