@@ -1,8 +1,28 @@
 version: '3'
 services:
-  my-service:
-    image: etin5/td3mlops:latest
+  backend-service:
+    image: etin5/td3mlops:backend
     ports:
       - "5000:5000"
     environment:
       - CURRENT_ENVIRONMENT=development
+      - FLASK_APP=app/back/app.py
+    networks:
+      - app-network
+  
+  frontend-service:
+    image: etin5/td3mlops:frontend
+    ports:
+      - "8080:80"
+    environment:
+      - WS_BACK_URL=http://localhost:5000
+    depends_on:
+      - backend-service
+    networks:
+      - app-network
+volumes :
+  backend-data:
+
+networks:
+  app-network:
+    driver: bridge
